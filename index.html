@@ -10,35 +10,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <script>
       $(document).ready(function(){
-        loadVideos();
-        $("#icons").on('click','a',play);
-        setInterval(getThumbs,1000);
+        play();
       });
 
-      function loadVideos(){
-        $.get('cgi-bin/thumbs_create.cgi',function(data){
-        });
-      }
-
-      function getThumbs(){
-        $.get('cgi-bin/thumbs_list.cgi',function(data){
-          var thumbs = data.split('\n');
-          $("#icons").html("");
-          thumbs.forEach(function(t){
-            if(t != ""){
-              var video = t.replace(".png","")
-              $("#icons").append('<div class="col-lg-3 col-md-4 col-xs-6">'+
-                '  <a id="'+video+'" class="d-block mb-4 h-100 vidth">'+
-                  '    <img class="img-fluid img-thumbnail" src="thumbs/'+t+'" alt="">'+
-                  '  </a>'+
-                '</div>');
-            }
-          });
-        });
-      }
-
       function play(){
-        var video=$(this).attr('id');
+        var video="rtsp://198.64.249.22:554/mbc.sdp";
         $.get('cgi-bin/play.cgi?vid='+video,function(){})
       }
     </script>
